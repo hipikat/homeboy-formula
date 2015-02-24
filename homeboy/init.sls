@@ -7,16 +7,17 @@
 
   # Install 'dotfiles' from a git repository
   {% if 'dotfiles' in user %}
+
     {% set dotfiles = user['dotfiles'] %}
     {% set dotfiles_dir = home ~ '/' ~ dotfiles.get('dir', '.dotfiles') %}
+
 .Dotfiles git checkout for {{ name }}:
   git.latest:
     - name: {{ dotfiles['url'] }}
     - target: {{ dotfiles_dir }}
     - user: {{ name }}
-  {% endif %}
 
-  {% if 'install_cmd' in dotfiles %}
+    {% if 'install_cmd' in dotfiles %}
 .Dotfiles install command for {{ name }}:
   cmd.wait:
     - name: {{ dotfiles['install_cmd'] }}
@@ -24,6 +25,8 @@
     - cwd: {{ dotfiles_dir }}
     - watch:
       - git: .Dotfiles git checkout for {{ name }}
+    {% endif %}
+
   {% endif %}
 
   # Install system packages for this user
