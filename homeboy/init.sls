@@ -16,6 +16,9 @@
     - name: {{ dotfiles['url'] }}
     - target: {{ dotfiles_dir }}
     - user: {{ name }}
+    {% if 'deploy_key' in dotfiles %}
+    - identity: {{ dotfiles['deploy_key'] }}
+    {% endif %}
 
     {% if 'install_cmd' in dotfiles %}
 .Dotfiles install command for {{ name }}:
@@ -30,17 +33,17 @@
   {% endif %}
 
   # Install system packages for this user
-  {% if 'uses_sys_packages' in user %}
+  {% if 'uses_system_packages' in user %}
 .Install system packages for user {{ name }}:
   pkg.installed:
     - pkgs:
-      {% for sys_pkg in user['uses_sys_packages'] %}
+      {% for sys_pkg in user['uses_system_packages'] %}
       - {{ sys_pkg }}
       {% endfor %}
   {% endif %}
 
   # Install system-Python packages for this user
-  {% for py_pkg in user.get('uses_py_packages', []) %}
+  {% for py_pkg in user.get('uses_python_packages', []) %}
 .Install system-Python package {{ py_pkg }} for {{ name }}:
   pkg.installed:
     - name: python-pip
