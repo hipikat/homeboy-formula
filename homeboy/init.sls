@@ -21,7 +21,7 @@
     {% endif %}
 
     {% if 'install_cmd' in dotfiles %}
-.Dotfiles install command for {{ name }}:
+.Dotfiles install command in {{ dotfiles_dir }}:
   cmd.wait:
     - name: {{ dotfiles['install_cmd'] }}
     - user: {{ name }}
