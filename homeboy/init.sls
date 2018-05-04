@@ -9,7 +9,7 @@
   {% if 'dotfiles' in user %}
 
     {% set dotfiles = user['dotfiles'] %}
-    {% set dotfiles_dir = home ~ '/' ~ dotfiles.get('dir', '.dotfiles') %}
+    {% set dotfiles_dir = home ~ '/' ~ dotfiles.get('dir', '.dotfiles') ~ '/' %}
 
 .Dotfiles git checkout for {{ name }}:
   git.latest:
@@ -23,7 +23,7 @@
     {% if 'install_cmd' in dotfiles %}
 .Dotfiles install command in {{ dotfiles_dir }}:
   cmd.wait:
-    - name: {{ dotfiles['install_cmd'] }}
+    - name: {{ './' ~ dotfiles['install_cmd'] }}
     - user: {{ name }}
     - cwd: {{ dotfiles_dir }}
     - watch:
