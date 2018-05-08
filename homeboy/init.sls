@@ -15,7 +15,7 @@
   git.latest:
     - name: {{ dotfiles['url'] }}
     - target: {{ dotfiles_dir }}
-    - user: {{ name }}
+    - runas: {{ name }}
     {% if 'deploy_key' in dotfiles %}
     - identity: {{ dotfiles['deploy_key'] }}
     {% endif %}
@@ -24,7 +24,7 @@
 .Dotfiles install command in {{ dotfiles_dir }}:
   cmd.wait:
     - name: {{ './' ~ dotfiles['install_cmd'] }}
-    - user: {{ name }}
+    - runas: {{ name }}
     - cwd: {{ dotfiles_dir }}
     - watch:
       - git: .Dotfiles git checkout for {{ name }}
