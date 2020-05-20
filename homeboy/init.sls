@@ -23,7 +23,7 @@
     {% if 'install_cmd' in dotfiles %}
 .Dotfiles install command in {{ dotfiles_dir }}:
   cmd.wait:
-    - name: {{ './' ~ dotfiles['install_cmd'] }}
+    - name: {{ dotfiles['install_cmd'] }}
     - shell: /bin/bash
     - runas: {{ name }}
     - cwd: {{ dotfiles_dir }}
