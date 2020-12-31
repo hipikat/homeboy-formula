@@ -47,7 +47,7 @@
   {% for py_pkg in user.get('uses_python_packages', []) %}
 .Install system-Python package {{ py_pkg }} for {{ name }}:
   pkg.installed:
-    - name: python-pip
+    - name: python3-pip
 
   pip.installed:
     - name: {{ py_pkg }}
